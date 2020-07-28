@@ -1,3 +1,4 @@
+// @ts-ignore
 import createInlineStyleButton from 'draft-js-buttons/lib/utils/createInlineStyleButton'
 import React from 'react'
 

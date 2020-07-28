@@ -24,9 +24,13 @@ import React from 'react'
 
 import StrikeThroughButton from './buttons/StrikeThroughButton'
 
+// @ts-ignore
 import buttonStyles from './styles/buttonStyles.module.css'
+// @ts-ignore
 import editorStyles from './styles/editorStyles.module.css'
+// @ts-ignore
 import emojiStyles from './styles/emojiStyles.module.css'
+// @ts-ignore
 import toolbarStyles from './styles/toolbarStyles.module.css'
 import { WysiwygState } from './types'
 import { createWysiwygState } from './utils'
