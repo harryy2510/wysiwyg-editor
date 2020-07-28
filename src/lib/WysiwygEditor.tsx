@@ -1,173 +1,91 @@
-import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
-import createLinkPlugin from 'draft-js-anchor-plugin'
-import 'draft-js-anchor-plugin/lib/plugin.css'
-
-import {
-    BoldButton,
-    ItalicButton,
-    OrderedListButton,
-    UnderlineButton,
-    UnorderedListButton
-} from 'draft-js-buttons'
-import createInlineToolbarPlugin, { ToolbarChildrenProps } from 'draft-js-inline-toolbar-plugin'
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css'
-// @ts-ignore
-import createMentionPlugin from 'draft-js-mention-plugin'
-import 'draft-js-mention-plugin/lib/plugin.css'
+import { convertToRaw, EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import 'draft-js/dist/Draft.css'
-import createEmojiPlugin from 'draft-js-emoji-plugin'
-import 'draft-js-emoji-plugin/lib/plugin.css'
-import { isEqual, map, memoize } from 'lodash-es'
 
 import React from 'react'
-
-import StrikeThroughButton from './buttons/StrikeThroughButton'
-
-// @ts-ignore
-import buttonStyles from './styles/buttonStyles.module.css'
+import plugins, { EmojiSuggestions, InlineToolbar, MentionSuggestions } from './plugins'
 // @ts-ignore
 import editorStyles from './styles/editorStyles.module.css'
-// @ts-ignore
-import emojiStyles from './styles/emojiStyles.module.css'
-// @ts-ignore
-import toolbarStyles from './styles/toolbarStyles.module.css'
-import { WysiwygState } from './types'
-import { createWysiwygState } from './utils'
+import { Suggestion } from './types'
+import { convertFromHTML, getSuggestions, convertToHTML } from './utils'
 
-// @ts-ignore
-import { convertToHTML } from 'draft-convert'
-
-interface Suggestion {
-    name: string
-}
 export interface WysiwygEditorProps {
-    value?: WysiwygState
-    onChange?: (newValue: WysiwygState) => void
-    onHtmlChange?: (html: string) => void
-    suggestions?: Record<string, string>
+    value?: string
+    onChange?: (newValue: string) => void
+    suggestions?: string[]
 }
 
-const EmojiButton: React.FC<ToolbarChildrenProps> = () => {
-    const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => event.preventDefault()
-    return (
-        <div className={emojiStyles.emoji} onMouseDown={onMouseDown}>
-            <emojiPlugin.EmojiSelect />
-        </div>
-    )
+interface WysiwygEditorState {
+    editorState: EditorState
+    suggestions: Suggestion[]
+    allSuggestions: Suggestion[]
 }
 
-interface MentionComponentProps {
-    className: string
-    decoratedText: string
-    entityKey: string
-    mention: Suggestion
-    theme: Record<string, string>
-}
-const MentionComponent: React.FC<MentionComponentProps> = (props) => {
-    const { children, className } = props
-    return (
-        <span className={className} spellCheck={false}>
-            {children}
-        </span>
-    )
-}
+class WysiwygEditor extends React.Component<WysiwygEditorProps, WysiwygEditorState> {
+    editorRef: React.RefObject<Editor> = React.createRef<Editor>()
 
-const inlineToolbarPlugin = createInlineToolbarPlugin({
-    theme: { buttonStyles, toolbarStyles }
-})
-const linkPlugin = createLinkPlugin({
-    linkTarget: '_blank'
-})
-const mentionPlugin = createMentionPlugin({
-    mentionTrigger: '{{',
-    entityMutability: 'IMMUTABLE',
-    mentionPrefix: '',
-    mentionComponent: MentionComponent
-})
-const emojiPlugin = createEmojiPlugin({
-    useNativeArt: true
-})
-
-const plugins = [inlineToolbarPlugin, linkPlugin, mentionPlugin, emojiPlugin]
-
-const getSuggestions = memoize(
-    (suggestionsMap?: Record<string, string>): Suggestion[] =>
-        map(suggestionsMap, (name, key) => ({ name: `{{${key.trim()}}}` })) as Suggestion[]
-)
-
-const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
-    value,
-    onChange,
-    onHtmlChange,
-    suggestions: suggestionsMap
-}) => {
-    const [state, setState] = React.useState<EditorState>(
-        EditorState.createWithContent(convertFromRaw(value ?? createWysiwygState()))
-    )
-    const editorRef = React.useRef<Editor>() as React.RefObject<Editor>
-    const suggestionsRef = React.useRef(getSuggestions(suggestionsMap))
-    const [suggestions, setSuggestions] = React.useState(suggestionsRef.current)
-
-    const onSearchChange = React.useCallback(
-        (props: { value: string }) => {
-            if (!props.value) {
-                setSuggestions(suggestionsRef.current)
-            } else {
-                const value = props.value.toLowerCase()
-                const filteredSuggestions = suggestions.filter((suggestion) =>
-                    suggestion.name.toLowerCase().includes(value)
-                )
-                setSuggestions(filteredSuggestions)
-            }
-        },
-        [suggestionsRef.current]
-    )
-
-    const handleChange = React.useCallback(
-        (newState: EditorState) => {
-            const contentState = newState.getCurrentContent()
-            const raw = convertToRaw(contentState)
-            if (!isEqual(raw, value)) {
-                onChange?.(raw)
-                const html = convertToHTML(contentState)
-                onHtmlChange?.(html)
-            }
-            setState(newState)
-        },
-        [value]
-    )
-
-    const handleFocus = () => {
-        editorRef.current?.focus()
+    constructor(props: WysiwygEditorProps) {
+        super(props)
+        const allSuggestions = getSuggestions(this.props.suggestions)
+        this.state = {
+            editorState: EditorState.createWithContent(convertFromHTML(this.props.value)),
+            suggestions: allSuggestions,
+            allSuggestions
+        }
     }
 
-    return (
-        <div onClick={handleFocus} className={editorStyles.editor}>
-            <Editor ref={editorRef} editorState={state} onChange={handleChange} plugins={plugins} />
-            <inlineToolbarPlugin.InlineToolbar>
-                {(externalProps: any) => (
-                    <>
-                        <BoldButton {...externalProps} />
-                        <ItalicButton {...externalProps} />
-                        <UnderlineButton {...externalProps} />
-                        <StrikeThroughButton {...externalProps} />
-                        <UnorderedListButton {...externalProps} />
-                        <OrderedListButton {...externalProps} />
-                        <linkPlugin.LinkButton {...externalProps} />
-                        <EmojiButton {...externalProps} />
-                    </>
-                )}
-            </inlineToolbarPlugin.InlineToolbar>
-            <emojiPlugin.EmojiSuggestions />
-            {suggestionsRef.current.length > 0 && (
-                <mentionPlugin.MentionSuggestions
-                    onSearchChange={onSearchChange}
-                    suggestions={suggestions}
+    onSearchChange = (props: { value: string }) => {
+        this.setState((existing) => {
+            if (!props.value) {
+                return { suggestions: existing.allSuggestions }
+            }
+            const value = props.value.toLowerCase()
+            const filteredSuggestions = existing.allSuggestions.filter((suggestion) =>
+                suggestion.name.toLowerCase().includes(value)
+            )
+            return { suggestions: filteredSuggestions }
+        })
+    }
+
+    onChange = (editorState: EditorState) => {
+        const contentState = editorState.getCurrentContent()
+        const html = convertToHTML(contentState)
+        if (html !== this.props.value) {
+            this.props.onChange?.(html)
+        }
+        this.setState({ editorState })
+    }
+
+    onFocus = () => {
+        this.editorRef.current?.focus()
+    }
+
+    getApi = (): Editor | null => this.editorRef.current
+
+    render() {
+        const {
+            onChange,
+            onFocus,
+            onSearchChange,
+            editorRef,
+            state: { editorState, suggestions, allSuggestions }
+        } = this
+        return (
+            <div onClick={onFocus} className={editorStyles.editor}>
+                <Editor
+                    ref={editorRef}
+                    editorState={editorState}
+                    onChange={onChange}
+                    plugins={plugins}
                 />
-            )}
-        </div>
-    )
+                <InlineToolbar />
+                <EmojiSuggestions />
+                {allSuggestions.length > 0 && (
+                    <MentionSuggestions onSearchChange={onSearchChange} suggestions={suggestions} />
+                )}
+            </div>
+        )
+    }
 }
 
 export default WysiwygEditor
