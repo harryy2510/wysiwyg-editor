@@ -1,0 +1,22 @@
+.emoji,
+.emoji > div {
+    display: inline-block;
+}
+
+.emoji > div > button {
+    background: transparent;
+    color: #888;
+    border: 0;
+    padding-bottom: 3px;
+    vertical-align: bottom;
+    height: 34px;
+    width: 36px;
+    border-radius: 0;
+    font-size: 24px;
+}
+
+.emoji > div > button:hover,
+.emoji > div > button:focus {
+    background: #f3f3f3;
+    outline: 0;
+}
