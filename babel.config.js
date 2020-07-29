@@ -1,10 +1,4 @@
-const libs = [
-    'lodash-es',
-    '@material-ui/core',
-    '@material-ui/styles',
-    '@material-ui/icons',
-    '@material-ui/lab'
-]
+const libs = ['lodash-es']
 
 module.exports = {
     plugins: libs.map((l) => [

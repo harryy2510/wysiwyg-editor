@@ -1,22 +1,5 @@
-import { Box, CssBaseline } from '@material-ui/core'
-import { createMuiTheme } from '@material-ui/core/styles'
-import { ThemeProvider } from '@material-ui/styles'
 import React from 'react'
 import WysiwygEditor from './lib/WysiwygEditor'
-
-export const useLocalStorage = <T extends any = any>(
-    key: string,
-    defaultValue: T
-): [T, React.Dispatch<React.SetStateAction<T>>] => {
-    const [value, setValue] = React.useState<T>(() => {
-        const storedValue = window.localStorage.getItem(key)
-        return storedValue !== null ? JSON.parse(storedValue) : defaultValue
-    })
-    React.useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value))
-    }, [key, value])
-    return [value, setValue]
-}
 
 const suggestions = Object.keys({
     'appointment.date': 'Appointment Date',
@@ -43,10 +26,11 @@ const suggestions = Object.keys({
     'customer.lastName': ' Customer LastName',
     'customer.phone': ' Customer Phone',
     recipientName: 'recipient Name'
-})
+}).map((sug) => `{{${sug}}}`)
 
 const html = `
-    <table style="width: 100%">
+    <p></p>
+    <table>
         <tr>
             <td>What</td>
             <td>:</td>
@@ -63,19 +47,17 @@ const html = `
             <td>{{appointment.staff.name}}</td>
         </tr>
     </table>
+    <p></p>
+    <p></p>
+    <p></p>
 `
 
 function App() {
-    const [value, onChange] = useLocalStorage<string>('wysiwyg-test-3', html)
+    const [value, onChange] = React.useState(html)
     return (
-        <ThemeProvider
-            theme={createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } })}
-        >
-            <CssBaseline />
-            <Box position="absolute" top={0} right={0} bottom={0} left={0} p={20}>
-                <WysiwygEditor suggestions={suggestions} value={value} onChange={onChange} />
-            </Box>
-        </ThemeProvider>
+        <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, padding: 160 }}>
+            <WysiwygEditor suggestions={suggestions} value={value} onChange={onChange} />
+        </div>
     )
 }
 

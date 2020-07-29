@@ -1,0 +1,48 @@
+.ql-suggestion-list-container {
+    border-radius: 4px;
+    overflow: hidden;
+    width: auto;
+    margin: 4px 0;
+    min-width: 220px;
+    max-width: 440px;
+    background: #fff;
+    box-shadow: 0 4px 30px 0 #dcdcdc;
+    z-index: 2;
+}
+
+.ql-suggestion-list {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    overflow: auto;
+    max-height: 240px;
+}
+
+.ql-suggestion-list-item {
+    cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+    padding: 0 8px;
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.ql-suggestion-list-item.selected {
+    background-color: #e6f3ff;
+    text-decoration: none;
+}
+
+.suggestion {
+    height: 24px;
+    width: 65px;
+    border-radius: 6px;
+    background-color: #e6f3ff;
+    padding: 3px 0;
+    margin-right: 2px;
+    user-select: all;
+}
+
+.suggestion > span {
+    margin: 0 3px;
+}
