@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.6...v0.1.7) (2020-07-29)
+
+
+### Features
+
+* quill editor ([4b78b1f](https://github.com/harryy2510/wysiwyg-editor/commit/4b78b1f4326fc75ebfdf89f28ef24859f57c35c7))
+
 ### [0.1.6](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.5...v0.1.6) (2020-07-29)
 
 
