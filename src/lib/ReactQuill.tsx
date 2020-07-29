@@ -292,8 +292,6 @@ class ReactQuill extends React.Component<ReactQuillProps, ReactQuillState> {
      */
     createEditor(element: Element, config: QuillOptions) {
         const editor = new Quill(element, config)
-        editor.root.classList.remove('ql-editor')
-        editor.root.classList.add('quill-editor')
         if (config.tabIndex != null) {
             this.setEditorTabIndex(editor, config.tabIndex)
         }
