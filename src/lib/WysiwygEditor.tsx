@@ -1,9 +1,9 @@
 import Quill, { StringMap } from 'quill'
 import 'quill/dist/quill.bubble.css'
 import React from 'react'
+import ReactQuill, { ReactQuillProps } from './ReactQuill'
 import Suggestion, { SuggestionOptions } from './suggestion/quill.suggestion'
 import './suggestion/quill.suggestion.css'
-import ReactQuill, { Range } from './ReactQuill'
 import './WysiwygEditor.scss'
 
 Quill.register('modules/suggestion', Suggestion)
@@ -144,7 +144,7 @@ const palette = [
     '#263238'
 ]
 
-const defaultModules: StringMap = {
+export const defaultModules: StringMap = {
     toolbar: [
         'bold',
         'italic',
@@ -163,20 +163,14 @@ const defaultModules: StringMap = {
     ]
 }
 
-export interface WysiwygEditorProps {
+export interface WysiwygEditorProps extends ReactQuillProps {
     suggestions?: string[]
-    value?: string
-    onChange?: (newValue: string) => void
 }
 
-const WysiwygEditor: React.FC<WysiwygEditorProps> = ({ suggestions = [], value, onChange }) => {
-    const editorRef = React.useRef<ReactQuill>() as React.RefObject<ReactQuill>
-    const cursorRef = React.useRef<Range>(null)
-    const handleSelectionChange = (selection: Range) => {
-        if (selection) {
-            cursorRef.current = selection
-        }
-    }
+const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
+    ReactQuill,
+    WysiwygEditorProps
+>(({ suggestions = [], ...props }, ref) => {
     const modules = React.useMemo(() => {
         return {
             ...defaultModules,
@@ -198,16 +192,7 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = ({ suggestions = [], value, 
                 : {})
         }
     }, [suggestions])
-    return (
-        <ReactQuill
-            ref={editorRef}
-            theme="bubble"
-            modules={modules}
-            onChangeSelection={handleSelectionChange}
-            value={value}
-            onChange={onChange}
-        />
-    )
-}
+    return <ReactQuill theme="bubble" modules={modules} {...props} ref={ref} />
+})
 
 export default WysiwygEditor
