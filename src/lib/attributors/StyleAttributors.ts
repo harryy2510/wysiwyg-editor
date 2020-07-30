@@ -20,7 +20,10 @@ const allowedStyles = [
     'padding-top',
     'padding-right',
     'padding-bottom',
-    'padding-left'
+    'padding-left',
+    'height',
+    'width',
+    'vertical-align'
 ]
 const StyleAttributors = allowedStyles.reduce<CustomStyleAttributor[]>(
     (result, key) => [
