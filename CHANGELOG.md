@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.10...v0.1.11) (2020-07-30)
+
+
+### Bug Fixes
+
+* class extend ([00ad431](https://github.com/harryy2510/wysiwyg-editor/commit/00ad431f325a87e2d44e587e5d1a5d0d3bf1ea3d))
+
 ### [0.1.10](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.9...v0.1.10) (2020-07-30)
 
 
