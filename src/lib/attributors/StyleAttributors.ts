@@ -7,7 +7,7 @@ class CustomStyleAttributor extends Parchment.StyleAttributor {
     }
 }
 
-const allowedStyles = [
+const allowedBlockStyles = [
     'font-size',
     'border-radius',
     'border',
@@ -20,19 +20,24 @@ const allowedStyles = [
     'padding-top',
     'padding-right',
     'padding-bottom',
-    'padding-left',
-    'height',
-    'width',
-    'vertical-align'
+    'padding-left'
 ]
-const StyleAttributors = allowedStyles.reduce<CustomStyleAttributor[]>(
-    (result, key) => [
-        ...result,
-        // @ts-ignore
-        new CustomStyleAttributor(`${key}`, key, {
-            scope: Parchment.Scope.BLOCK
-        })
-    ],
-    []
-)
+
+const allowedInlineStyles = ['height', 'width', 'vertical-align']
+const StyleAttributors = [
+    ...allowedBlockStyles.map(
+        (key) =>
+            // @ts-ignore
+            new CustomStyleAttributor(`${key}`, key, {
+                scope: Parchment.Scope.BLOCK
+            })
+    ),
+    ...allowedInlineStyles.map(
+        (key) =>
+            // @ts-ignore
+            new CustomStyleAttributor(`${key}`, key, {
+                scope: Parchment.Scope.INLINE
+            })
+    )
+]
 export default StyleAttributors
