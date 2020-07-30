@@ -2,7 +2,7 @@ import Quill, { Sources, RangeStatic } from 'quill'
 import './blots/suggestion'
 import Delta from 'quill-delta'
 import Keys from './constants'
-import './quill.suggestion.css'
+import './quill.suggestion.scss'
 import { getSuggestionCharIndex, hasValidChars, hasValidSuggestionCharIndex } from './utils'
 
 export interface SuggestionOptions {

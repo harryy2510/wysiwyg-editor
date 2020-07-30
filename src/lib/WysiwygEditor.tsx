@@ -3,7 +3,7 @@ import 'quill/dist/quill.bubble.css'
 import React from 'react'
 import ReactQuill, { ReactQuillProps } from './ReactQuill'
 import Suggestion, { SuggestionOptions } from './suggestion/quill.suggestion'
-import './suggestion/quill.suggestion.css'
+import './suggestion/quill.suggestion.scss'
 import './WysiwygEditor.scss'
 
 import StyleAttributors from './attributors/StyleAttributors'
