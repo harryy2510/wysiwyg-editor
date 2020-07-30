@@ -1,8 +1,7 @@
 import Quill from 'quill'
-const { StyleAttributor, Scope } = Quill.import('parchment')
+const Parchment = Quill.import('parchment')
 
-// @ts-ignore
-class CustomStyleAttributor extends StyleAttributor {
+class CustomStyleAttributor extends Parchment.StyleAttributor {
     value(domNode: HTMLElement) {
         return super.value(domNode)
     }
@@ -28,7 +27,7 @@ const StyleAttributors = allowedStyles.reduce<CustomStyleAttributor[]>(
         ...result,
         // @ts-ignore
         new CustomStyleAttributor(`${key}`, key, {
-            scope: Scope.BLOCK
+            scope: Parchment.Scope.BLOCK
         })
     ],
     []
