@@ -30,13 +30,13 @@
         "lodash-es": "^4.17.15",
         "quill": "^2.0.0-dev.4",
         "react": "^16.13.1",
-        "react-dom": "^16.13.1"
+        "react-dom": "^16.13.1",
+        "@harryy/rehooks": "^0.1.1"
     },
     "devDependencies": {
         "@commitlint/cli": "^9.1.1",
         "@commitlint/config-conventional": "^9.1.1",
         "@commitlint/prompt-cli": "^9.1.1",
-        "@harryy/rehooks": "^0.1.1",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
         "@testing-library/jest-dom": "^5.11.2",
         "@testing-library/react": "^10.4.7",

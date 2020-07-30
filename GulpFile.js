@@ -31,17 +31,7 @@ task('clean', () =>
 )
 
 task('copy:package', () => {
-    const deps = [
-        '@material-ui',
-        '@lingui',
-        'lodash',
-        '@loadable',
-        'clsx',
-        'yup',
-        'material-ui',
-        'react-color',
-        'use-debounce'
-    ]
+    const deps = ['lodash']
     const exactDeps = ['react', 'react-dom']
     return src('./package.json')
         .pipe(
