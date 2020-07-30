@@ -10,13 +10,6 @@
     height: auto;
     transform: scale(1);
 
-    .ql-editor {
-        line-height: inherit;
-        overflow-y: inherit;
-        padding: 0;
-        text-align: inherit;
-    }
-
     .ql-formats {
         display: inline-flex;
     }
@@ -85,6 +78,24 @@
             display: block;
             opacity: 0;
             visibility: hidden;
+        }
+    }
+}
+
+.ql-editor {
+    line-height: inherit;
+    overflow-y: inherit;
+    padding: 0;
+    text-align: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+
+    table {
+        width: auto;
+        margin: auto;
+
+        td {
+            border: none;
         }
     }
 }

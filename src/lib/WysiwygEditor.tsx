@@ -6,6 +6,8 @@ import Suggestion, { SuggestionOptions } from './suggestion/quill.suggestion'
 import './suggestion/quill.suggestion.css'
 import './WysiwygEditor.scss'
 
+import StyleAttributors from './attributors/StyleAttributors'
+StyleAttributors.forEach((Attributor) => Quill.register(Attributor))
 Quill.register('modules/suggestion', Suggestion)
 
 const palette = [
