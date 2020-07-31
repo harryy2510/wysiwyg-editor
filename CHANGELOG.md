@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.17](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.16...v0.1.17) (2020-07-31)
+
+
+### Bug Fixes
+
+* suggestion container css ([e99c4e9](https://github.com/harryy2510/wysiwyg-editor/commit/e99c4e9ae11f8d02f56ad934db0e2a5e90574ea9))
+
 ### [0.1.16](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.15...v0.1.16) (2020-07-30)
 
 
