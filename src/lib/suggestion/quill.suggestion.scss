@@ -1,4 +1,4 @@
-.ql-editor {
+.ql-container {
     .ql-suggestion-list-container {
         border-radius: 4px;
         overflow: hidden;
@@ -33,7 +33,9 @@
         background-color: #e6f3ff;
         text-decoration: none;
     }
+}
 
+.ql-editor {
     .suggestion {
         border-radius: 6px;
         background-color: #e6f3ff;
