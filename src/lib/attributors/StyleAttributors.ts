@@ -8,6 +8,7 @@ class CustomStyleAttributor extends Parchment.StyleAttributor {
 }
 
 const allowedBlockStyles = [
+    'display',
     'font-size',
     'border-radius',
     'border',

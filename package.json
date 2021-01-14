@@ -7,7 +7,8 @@
         "build": "react-app-rewired build",
         "release": "gulp release",
         "commit": "commit",
-        "update": "npm-check -u"
+        "update": "npm-check -u",
+        "npm-publish": "npm publish build/lib"
     },
     "husky": {
         "hooks": {
@@ -27,27 +28,26 @@
         ]
     },
     "dependencies": {
-        "lodash-es": "^4.17.15",
+        "lodash-es": "^4.17.20",
         "quill": "^2.0.0-dev.4",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
         "@harryy/rehooks": "^0.1.1"
     },
     "devDependencies": {
-        "@commitlint/cli": "^9.1.1",
-        "@commitlint/config-conventional": "^9.1.1",
-        "@commitlint/prompt-cli": "^9.1.1",
-        "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
-        "@testing-library/jest-dom": "^5.11.2",
-        "@testing-library/react": "^10.4.7",
-        "@testing-library/user-event": "^12.0.17",
-        "@types/jest": "^26.0.7",
-        "@types/lodash-es": "^4.17.3",
-        "@types/node": "^14.0.27",
-        "@types/quill": "^2.0.3",
-        "@types/react": "^16.9.43",
-        "@types/react-dom": "^16.9.8",
-        "babel-plugin-import": "^1.13.0",
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
+        "@commitlint/prompt-cli": "^11.0.0",
+        "@testing-library/jest-dom": "^5.11.9",
+        "@testing-library/react": "^11.2.3",
+        "@testing-library/user-event": "^12.6.0",
+        "@types/jest": "^26.0.20",
+        "@types/lodash-es": "^4.17.4",
+        "@types/node": "^14.14.20",
+        "@types/quill": "^2.0.4",
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.0",
+        "babel-plugin-import": "^1.13.3",
         "customize-cra": "^1.0.0",
         "fs-extra": "^9.0.1",
         "gulp": "^4.0.2",
@@ -59,15 +59,14 @@
         "gulp-shell": "^0.8.0",
         "gulp-transform": "^3.0.5",
         "gulp-typescript": "^6.0.0-alpha.1",
-        "husky": "^4.2.5",
+        "husky": "^4.3.7",
         "node-sass": "^4.14.1",
         "npm-check": "^5.9.2",
-        "prettier": "^2.0.5",
-        "react-app-rewired": "^2.1.6",
-        "react-refresh": "^0.8.3",
-        "react-scripts": "3.4.1",
+        "prettier": "^2.2.1",
+        "react-app-rewired": "^2.1.8",
+        "react-scripts": "4.0.1",
         "simple-progress-webpack-plugin": "^1.1.2",
-        "standard-version": "^8.0.2",
-        "typescript": "3.9.7"
+        "standard-version": "^9.1.0",
+        "typescript": "4.1.3"
     }
 }

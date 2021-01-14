@@ -69,6 +69,9 @@ const html = `
             <td><span class="suggestion" data-value="{{business.phone}}">{{business.phone}}</span></td>
         </tr>
     </table>
+    <p style="display: none">{% if x !== "" %}</p>
+    <p>click on link to join meeting</p>
+    <p style="display: none">{% endif %}</p>
 `
 
 function App() {
