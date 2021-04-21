@@ -139,6 +139,16 @@ class Suggestion {
             this.downHandler.bind(this)
         )
         _quill.keyboard.bindings[Keys.DOWN].unshift(_quill.keyboard.bindings[Keys.DOWN].pop())
+
+        _quill.keyboard.addBinding(
+            {
+                key: Keys.BACKSPACE
+            },
+            this.deleteHandler.bind(this)
+        )
+        _quill.keyboard.bindings[Keys.BACKSPACE].unshift(
+            _quill.keyboard.bindings[Keys.BACKSPACE].pop()
+        )
     }
 
     selectHandler() {
@@ -169,6 +179,17 @@ class Suggestion {
         if (this.isOpen) {
             this.nextItem()
             return false
+        }
+        return true
+    }
+
+    deleteHandler() {
+        if (typeof this.cursorPos === 'number') {
+            const [leaf] = this.quill.getLeaf(this.cursorPos)
+            if (leaf.statics.blotName === 'suggestion') {
+                leaf.remove()
+                return false
+            }
         }
         return true
     }
