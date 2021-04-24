@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.23](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.22...v0.1.23) (2021-04-24)
+
+
+### Bug Fixes
+
+* deletion of suggestion blot ([7428d90](https://github.com/harryy2510/wysiwyg-editor/commit/7428d90cfee2d7c65f6545597f9d2e54c3389362))
+
 ### [0.1.22](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.21...v0.1.22) (2021-04-24)
 
 ### [0.1.21](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.20...v0.1.21) (2021-04-21)
