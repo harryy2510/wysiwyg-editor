@@ -144,11 +144,19 @@ class Suggestion {
             {
                 key: Keys.BACKSPACE
             },
-            this.deleteHandler.bind(this)
+            this.backspaceHandler.bind(this)
         )
         _quill.keyboard.bindings[Keys.BACKSPACE].unshift(
             _quill.keyboard.bindings[Keys.BACKSPACE].pop()
         )
+
+        _quill.keyboard.addBinding(
+            {
+                key: Keys.DELETE
+            },
+            this.deleteHandler.bind(this)
+        )
+        _quill.keyboard.bindings[Keys.DELETE].unshift(_quill.keyboard.bindings[Keys.DELETE].pop())
     }
 
     selectHandler() {
@@ -183,10 +191,21 @@ class Suggestion {
         return true
     }
 
+    backspaceHandler() {
+        if (typeof this.cursorPos === 'number') {
+            const [leaf, position] = this.quill.getLeaf(this.cursorPos)
+            if (leaf.statics.blotName === 'suggestion' && position === 1) {
+                leaf.remove()
+                return false
+            }
+        }
+        return true
+    }
+
     deleteHandler() {
         if (typeof this.cursorPos === 'number') {
-            const [leaf] = this.quill.getLeaf(this.cursorPos)
-            if (leaf.statics.blotName === 'suggestion') {
+            const [leaf, position] = this.quill.getLeaf(this.cursorPos)
+            if (leaf.statics.blotName === 'suggestion' && position === 0) {
                 leaf.remove()
                 return false
             }

@@ -4,7 +4,8 @@ const Keys = {
     ESCAPE: 27,
     UP: 'ArrowUp',
     DOWN: 'ArrowDown',
-    BACKSPACE: 'Backspace'
+    BACKSPACE: 'Backspace',
+    DELETE: 'Delete'
 }
 
 export default Keys
