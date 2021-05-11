@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.24](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.23...v0.1.24) (2021-05-11)
+
+
+### Bug Fixes
+
+* undo clear ([1586d76](https://github.com/harryy2510/wysiwyg-editor/commit/1586d76151b1875a5861309864d786bd9d7694e9))
+
 ### [0.1.23](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.22...v0.1.23) (2021-04-24)
 
 
