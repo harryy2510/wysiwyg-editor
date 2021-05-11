@@ -158,7 +158,12 @@ export const defaultModules: StringMap = {
         { background: palette },
         { align: [] },
         'clean'
-    ]
+    ],
+    history: {
+        delay: 2000,
+        maxStack: 500,
+        userOnly: true
+    }
 }
 
 export interface WysiwygEditorProps extends ReactQuillProps {
