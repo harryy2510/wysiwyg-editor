@@ -1,7 +1,8 @@
-import Quill, { StringMap } from 'quill'
+import clsx from 'clsx'
+import Quill, { Sources, StringMap } from 'quill'
 import 'quill/dist/quill.bubble.css'
-import React from 'react'
-import ReactQuill, { ReactQuillProps } from './ReactQuill'
+import React, { useState } from 'react'
+import ReactQuill, { Range, ReactQuillProps, UnprivilegedEditor } from './ReactQuill'
 import Suggestion, { SuggestionOptions } from './suggestion/quill.suggestion'
 import './suggestion/quill.suggestion.scss'
 import './WysiwygEditor.scss'
@@ -174,6 +175,15 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
     ReactQuill,
     WysiwygEditorProps
 >(({ suggestions = [], ...props }, ref) => {
+    const [focused, setFocused] = useState(false)
+    const handleFocus = (selection: Range, source: Sources, editor: UnprivilegedEditor) => {
+        setFocused(true)
+        props.onFocus?.(selection, source, editor)
+    }
+    const handleBlur = (previousSelection: Range, source: Sources, editor: UnprivilegedEditor) => {
+        setFocused(false)
+        props.onBlur?.(previousSelection, source, editor)
+    }
     const modules = React.useMemo(() => {
         return {
             ...defaultModules,
@@ -195,7 +205,17 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
                 : {})
         }
     }, [suggestions])
-    return <ReactQuill theme="bubble" modules={modules} {...props} ref={ref} />
+    return (
+        <ReactQuill
+            theme="bubble"
+            modules={modules}
+            {...props}
+            className={clsx(focused && 'focused', props.className)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            ref={ref}
+        />
+    )
 })
 
 export default WysiwygEditor
