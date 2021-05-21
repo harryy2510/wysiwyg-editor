@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.25](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.24...v0.1.25) (2021-05-21)
+
+
+### Bug Fixes
+
+* z index on focus ([dd8c5ca](https://github.com/harryy2510/wysiwyg-editor/commit/dd8c5ca5b173f26dffb8590d1f52830a574a9d52))
+
 ### [0.1.24](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.23...v0.1.24) (2021-05-11)
 
 
