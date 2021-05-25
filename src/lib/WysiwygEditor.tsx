@@ -1,17 +1,15 @@
-import { Button, Menu, MenuItem } from '@material-ui/core'
 import clsx from 'clsx'
-import { bindMenu, bindTrigger } from 'material-ui-popup-state'
-import Quill, { Sources, StringMap } from 'quill'
+import Quill, { Sources } from 'quill'
 import 'quill/dist/quill.bubble.css'
-import React, { useState } from 'react'
+import 'quill/dist/quill.snow.css'
+import React, { useCallback, useEffect, useState } from 'react'
+
+import StyleAttributors from './attributors/StyleAttributors'
 import ReactQuill, { Range, ReactQuillProps, UnprivilegedEditor } from './ReactQuill'
 import Suggestion, { SuggestionOptions } from './suggestion/quill.suggestion'
 import './suggestion/quill.suggestion.scss'
 import './WysiwygEditor.scss'
-import { usePopupState } from 'material-ui-popup-state/hooks'
 
-import StyleAttributors from './attributors/StyleAttributors'
-import useCombinedRefs from './useCombinedRefs'
 StyleAttributors.forEach((Attributor) => Quill.register(Attributor))
 Quill.register('modules/suggestion', Suggestion)
 
@@ -151,41 +149,27 @@ const palette = [
     '#263238'
 ]
 
-export const defaultModules: StringMap = {
-    toolbar: [
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'blockquote',
-        'link',
-        { color: palette },
-        { background: palette },
-        { align: [] },
-        'clean'
-    ],
-    history: {
-        delay: 2000,
-        maxStack: 500,
-        userOnly: true
-    }
-}
-
 export interface WysiwygEditorProps extends ReactQuillProps {
     suggestions?: string[]
+}
+
+const fixSuggestionsDropdown = () => {
+    const suggestionsPickerItems = Array.prototype.slice.call(
+        document.querySelectorAll('.ql-suggestions .ql-picker-item')
+    )
+    if (suggestionsPickerItems.length) {
+        suggestionsPickerItems.forEach((item) => (item.textContent = item.dataset.value))
+        const label = document.querySelector('.ql-suggestions .ql-picker-label')
+        if (label && !label.innerHTML.includes('Smarty Tags')) {
+            label.innerHTML = 'Smarty Tags ' + label.innerHTML
+        }
+    }
 }
 
 const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
     ReactQuill,
     WysiwygEditorProps
 >(({ suggestions = [], ...props }, ref) => {
-    const editorRef = useCombinedRefs(ref)
-
-    const popupState = usePopupState({
-        variant: 'popover',
-        disableAutoFocus: true,
-        popupId: ``
-    })
     const [focused, setFocused] = useState(false)
     const handleFocus = (selection: Range, source: Sources, editor: UnprivilegedEditor) => {
         setFocused(true)
@@ -195,19 +179,47 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
         setFocused(false)
         props.onBlur?.(previousSelection, source, editor)
     }
-    const handleSmartyTagInsert = (tag: string, index: number) => {
-        const quill = editorRef.current?.editor
+    const handleSmartyTagInsert = useCallback(function (tag: string, index: number) {
+        // @ts-ignore
+        const quill = (this as any).quill
         if (quill) {
             const pos = quill.getSelection()?.index ?? 0
             quill.insertEmbed(pos, 'suggestion', { value: tag, index }, 'user')
             quill.insertText(pos + 1, ' ', 'user')
             quill.setSelection(pos + 2, 0, 'user')
         }
-        popupState.close()
-    }
+    }, [])
+    useEffect(() => {
+        fixSuggestionsDropdown()
+        setTimeout(() => {
+            fixSuggestionsDropdown()
+        }, 300)
+    }, [])
     const modules = React.useMemo(() => {
         return {
-            ...defaultModules,
+            toolbar: {
+                container: [
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strike',
+                    'blockquote',
+                    'link',
+                    { color: palette },
+                    { background: palette },
+                    { align: [] },
+                    ...(suggestions?.length! > 0 ? [{ suggestions }] : []),
+                    'clean'
+                ],
+                handlers: {
+                    suggestions: handleSmartyTagInsert
+                }
+            },
+            history: {
+                delay: 2000,
+                maxStack: 500,
+                userOnly: true
+            },
             ...(suggestions?.length! > 0
                 ? {
                       suggestion: {
@@ -225,35 +237,16 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
                   }
                 : {})
         }
-    }, [suggestions])
+    }, [suggestions, handleSmartyTagInsert])
     return (
         <div className={clsx(focused && 'focused', 'quill-container')}>
-            {Boolean(suggestions?.length) && (
-                <>
-                    <Button
-                        {...bindTrigger(popupState)}
-                        className="smarty-tag-selector"
-                        variant="outlined"
-                        size="small"
-                    >
-                        Smarty Tags
-                    </Button>
-                    <Menu {...bindMenu(popupState)}>
-                        {suggestions.map((text, index) => (
-                            <MenuItem onClick={() => handleSmartyTagInsert(text, index)} dense>
-                                {text}
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </>
-            )}
             <ReactQuill
                 theme="bubble"
                 modules={modules}
                 {...props}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                ref={editorRef}
+                ref={ref}
             />
         </div>
     )

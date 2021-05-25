@@ -62,7 +62,6 @@
         "gulp-transform": "^3.0.5",
         "gulp-typescript": "^6.0.0-alpha.1",
         "husky": "^4.3.7",
-        "material-ui-popup-state": "^1.8.3",
         "node-sass": "^4.14.1",
         "npm-check": "^5.9.2",
         "prettier": "^2.2.1",

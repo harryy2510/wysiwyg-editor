@@ -6,31 +6,11 @@
 
     &.focused {
         z-index: 1;
-
-        .smarty-tag-selector {
-            opacity: 0.8;
-        }
     }
 }
 
-button.smarty-tag-selector {
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    opacity: 0.5;
-    z-index: 1;
-    text-transform: none;
-    padding: 0 6px;
-    font-size: 0.75rem;
-
-    &:focus,
-    &:hover,
-    &:active {
-        opacity: 0.8;
-    }
-}
-
-.ql-container.ql-bubble {
+.ql-container.ql-bubble,
+.ql-container.ql-snow {
     font-size: inherit;
     font-family: inherit;
     padding: 0;
@@ -81,6 +61,18 @@ button.smarty-tag-selector {
                 .ql-picker-label {
                     color: #ccc;
                 }
+
+                .ql-picker-options {
+                    max-height: 240px;
+                    overflow: auto;
+                }
+            }
+
+            &.ql-suggestions .ql-picker-label {
+                padding-right: 16px;
+                svg {
+                    margin-top: -10px;
+                }
             }
         }
 
@@ -105,6 +97,27 @@ button.smarty-tag-selector {
             display: block;
             opacity: 0;
             visibility: hidden;
+        }
+    }
+}
+
+.ql-toolbar.ql-bubble,
+.ql-toolbar.ql-snow {
+    .ql-picker {
+        &.ql-expanded {
+            .ql-picker-options {
+                max-height: 240px;
+                overflow: auto;
+            }
+        }
+
+        &.ql-suggestions .ql-picker-label {
+            padding-right: 16px;
+            white-space: nowrap;
+
+            svg {
+                margin-top: -10px;
+            }
         }
     }
 }
