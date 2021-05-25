@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.27](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.26...v0.1.27) (2021-05-25)
+
+
+### Bug Fixes
+
+* added smarty tag dropdown ([64c270d](https://github.com/harryy2510/wysiwyg-editor/commit/64c270d1324a39fa8eba75f2fd9ebe5f7c5c9ca0))
+
 ### [0.1.26](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.25...v0.1.26) (2021-05-21)
 
 
