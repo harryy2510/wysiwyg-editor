@@ -16,6 +16,7 @@
     padding: 0;
     height: auto;
     transform: scale(1);
+    border: none;
 
     .ql-formats {
         display: inline-flex;
@@ -103,6 +104,7 @@
 
 .ql-toolbar.ql-bubble,
 .ql-toolbar.ql-snow {
+    border: none;
     .ql-picker {
         &.ql-expanded {
             .ql-picker-options {
@@ -120,6 +122,18 @@
             }
         }
     }
+}
+
+.ql-toolbar.ql-snow {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: 0.15s ease-in;
+}
+
+.active .ql-toolbar.ql-snow {
+    max-height: 40px;
+    padding: 8px 0;
 }
 
 .ql-editor {

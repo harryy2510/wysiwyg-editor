@@ -241,7 +241,7 @@ const WysiwygEditor: React.FC<WysiwygEditorProps> = React.forwardRef<
     return (
         <div className={clsx(focused && 'focused', 'quill-container')}>
             <ReactQuill
-                theme="bubble"
+                theme="snow"
                 modules={modules}
                 {...props}
                 onFocus={handleFocus}
