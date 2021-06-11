@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.29](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.28...v0.1.29) (2021-06-11)
+
+
+### Bug Fixes
+
+* overflow ([580efc3](https://github.com/harryy2510/wysiwyg-editor/commit/580efc367bc761caad59825c1061b55857a48486))
+
 ### [0.1.28](https://github.com/harryy2510/wysiwyg-editor/compare/v0.1.27...v0.1.28) (2021-06-11)
 
 
